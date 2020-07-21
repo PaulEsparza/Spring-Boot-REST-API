@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @RestController
-@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.OPTIONS,RequestMethod.PATCH,RequestMethod.DELETE})
 @RequestMapping("/books")
 public class BookController {
 
@@ -47,12 +47,15 @@ public class BookController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public String deleteBook(@PathVariable("id") Integer id) {
+    public boolean deleteBook(@PathVariable("id") Integer id) {
+        return this.bookService.deleteBook(id);
+        /*
         boolean ok = this.bookService.deleteBook(id);
         if (ok) {
             return "Se elimino el libro con id: " + id;
         } else {
             return "No se pudo eliminar el libro con id: " + id;
         }
+        */
     }
 }
